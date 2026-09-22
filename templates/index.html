@@ -69,7 +69,7 @@
             color: #555;
         }
 
-        /* === QR Code 新增樣式 === */
+        /* === QR Code 美化樣式 === */
         .qrcode-section {
             margin-top: 40px;
             background-color: white;
@@ -158,11 +158,16 @@
 
     </div>
 
-    <!-- === QR Code 展示區塊 (qr_e.jpg) === -->
+    <!-- === QR Code 區塊 === -->
     <div class="qrcode-section">
         <h3>📱 行動端存取與分享</h3>
-        <p>掃描下方 QR Code 快速瀏覽：</p>
-        <img class="qr-img" src="static/images/qr_e.jpg" alt="QR Code">
+        <p>掃描下方 QR Code 快速瀏覽本學習歷程檔案：</p>
+        
+        <!-- 純 HTML / 靜態伺服器 -->
+        <img class="qr-img" src="static/images/qr_code.jpg" alt="學習歷程檔案 QR Code">
+
+        <!-- 若為 Flask 專案請用這行： -->
+        <!-- <img class="qr-img" src="{{ url_for('static', filename='images/qr_code.jpg') }}" alt="學習歷程檔案 QR Code"> -->
     </div>
 </div>
 
