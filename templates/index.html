@@ -69,6 +69,39 @@
             color: #555;
         }
 
+        /* === QR Code 新增樣式 === */
+        .qrcode-section {
+            margin-top: 40px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .qrcode-section h3 {
+            margin: 0 0 10px 0;
+            color: #1565c0;
+            font-size: 20px;
+        }
+
+        .qrcode-section p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .qr-img {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            padding: 8px;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
         footer {
             text-align: center;
             padding: 20px;
@@ -123,6 +156,13 @@
             <p>結合人工智慧工具，提升學習效率與創作能力。</p>
         </div>
 
+    </div>
+
+    <!-- === QR Code 展示區塊 (qr_e.jpg) === -->
+    <div class="qrcode-section">
+        <h3>📱 行動端存取與分享</h3>
+        <p>掃描下方 QR Code 快速瀏覽：</p>
+        <img class="qr-img" src="static/images/qr_e.jpg" alt="QR Code">
     </div>
 </div>
 
