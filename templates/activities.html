@@ -1,183 +1,869 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>課外活動紀錄 | Extracurricular Activities</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      line-height: 1.6;
-      background-color: #f8f9fa;
-      color: #333;
-      padding: 20px;
-    }
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
+    <title>課外活動｜我的學習歷程</title>
 
-    header {
-      text-align: center;
-      margin-bottom: 40px;
-      padding: 20px 0;
-    }
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 
-    header h1 {
-      font-size: 2.2rem;
-      color: #1a252f;
-      margin-bottom: 10px;
-    }
+    <style>
 
-    header p {
-      color: #6c757d;
-      font-size: 1.1rem;
-    }
+        * {
+            box-sizing: border-box;
+        }
 
-    /* 活動卡片網格 */
-    .activity-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
-    }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    /* 單張卡片樣式 */
-    .activity-card {
-      background: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: flex;
-      flex-direction: column;
-    }
+        body {
+            margin: 0;
+            background: #f5f7fa;
+            color: #333;
+            font-family:
+                "Noto Sans TC",
+                "Microsoft JhengHei",
+                Arial,
+                sans-serif;
+        }
 
-    .activity-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    }
 
-    /* 卡片圖片容器 */
-    .card-image {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
+        /* =========================
+           導覽列
+        ========================= */
 
-    /* 卡片內容區域 */
-    .card-content {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
 
-    .card-tag {
-      align-self: flex-start;
-      background-color: #eef2ff;
-      color: #4f46e5;
-      font-size: 0.85rem;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 20px;
-      margin-bottom: 12px;
-    }
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
-    .card-title {
-      font-size: 1.3rem;
-      color: #111827;
-      margin-bottom: 8px;
-    }
+            padding: 15px 7%;
 
-    .card-date {
-      font-size: 0.85rem;
-      color: #9ca3af;
-      margin-bottom: 12px;
-    }
+            background: rgba(255, 255, 255, 0.95);
 
-    .card-description {
-      font-size: 0.95rem;
-      color: #4b5563;
-      margin-bottom: 15px;
-      flex-grow: 1;
-    }
+            box-shadow:
+                0 2px 15px rgba(0, 0, 0, 0.08);
 
-    .card-footer {
-      border-top: 1px solid #f3f4f6;
-      padding-top: 12px;
-      font-size: 0.9rem;
-      color: #6b7280;
-      font-weight: 500;
-    }
-  </style>
+            backdrop-filter: blur(10px);
+        }
+
+        nav h2 {
+            margin: 0;
+            color: #333;
+            font-size: 22px;
+        }
+
+        nav div {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: #555;
+            text-decoration: none;
+            font-size: 15px;
+
+            transition:
+                color 0.3s ease,
+                transform 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #4f7cac;
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================
+           頁面標題
+        ========================= */
+
+        .page-header {
+            text-align: center;
+
+            padding: 80px 20px 55px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef4f9,
+                    #f8fafc
+                );
+        }
+
+        .page-header h1 {
+            margin: 0 0 18px;
+
+            font-size: 44px;
+            color: #273444;
+
+            letter-spacing: 2px;
+        }
+
+        .page-header p {
+            margin: 0 auto;
+
+            max-width: 700px;
+
+            font-size: 18px;
+            line-height: 1.8;
+
+            color: #697586;
+        }
+
+
+        /* =========================
+           活動區域
+        ========================= */
+
+        .activities {
+            max-width: 1100px;
+
+            margin: 0 auto;
+
+            padding: 60px 20px 80px;
+        }
+
+
+        /* =========================
+           活動卡片
+        ========================= */
+
+        .activity-card {
+            display: flex;
+            align-items: stretch;
+
+            gap: 45px;
+
+            background: #ffffff;
+
+            padding: 25px;
+
+            margin-bottom: 40px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 8px 30px rgba(0, 0, 0, 0.07);
+
+            overflow: hidden;
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+
+        /* 偶數卡片圖片放右邊 */
+
+        .activity-card:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+
+        /* =========================
+           活動圖片
+        ========================= */
+
+        .activity-image {
+            width: 42%;
+            min-height: 300px;
+
+            object-fit: cover;
+
+            border-radius: 15px;
+
+            display: block;
+
+            transition:
+                transform 0.5s ease;
+        }
+
+        .activity-card:hover .activity-image {
+            transform: scale(1.03);
+        }
+
+
+        /* =========================
+           活動文字
+        ========================= */
+
+        .activity-content {
+            flex: 1;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .activity-date {
+            display: inline-block;
+
+            color: #6b7280;
+
+            font-size: 14px;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 8px;
+        }
+
+        .activity-content h2 {
+            margin: 5px 0 18px;
+
+            font-size: 29px;
+
+            color: #26384a;
+        }
+
+        .activity-content h3 {
+            margin: 18px 0 8px;
+
+            font-size: 19px;
+
+            color: #4f7cac;
+        }
+
+        .activity-content p {
+            margin: 0 0 12px;
+
+            font-size: 16px;
+
+            line-height: 1.9;
+
+            color: #555;
+        }
+
+
+        /* =========================
+           活動標籤
+        ========================= */
+
+        .activity-tag {
+            display: inline-block;
+
+            align-self: flex-start;
+
+            margin-top: 15px;
+
+            padding: 7px 17px;
+
+            background: #eef3f8;
+
+            color: #52677d;
+
+            border-radius: 30px;
+
+            font-size: 14px;
+
+            font-weight: 500;
+        }
+
+
+        /* =========================
+           學習成果
+        ========================= */
+
+        .activity-result {
+            margin-top: 18px;
+
+            padding: 15px 18px;
+
+            background: #f7f9fb;
+
+            border-left: 4px solid #6f91b5;
+
+            border-radius: 8px;
+
+            color: #4b5563;
+
+            font-size: 15px;
+
+            line-height: 1.8;
+        }
+
+        .activity-result strong {
+            color: #3d5873;
+        }
+
+
+        /* =========================
+           返回首頁
+        ========================= */
+
+        .back-button {
+            display: block;
+
+            width: fit-content;
+
+            margin: 5px auto 70px;
+
+            padding: 12px 28px;
+
+            background: #34495e;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 10px;
+
+            font-size: 15px;
+
+            transition:
+                background 0.3s ease,
+                transform 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #4f6b85;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================
+           Footer
+        ========================= */
+
+        footer {
+            text-align: center;
+
+            padding: 30px;
+
+            background: #222;
+
+            color: white;
+        }
+
+        footer p {
+            margin: 0;
+
+            font-size: 14px;
+
+            color: #ddd;
+        }
+
+
+        /* =========================
+           平板
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            nav {
+                padding: 15px 4%;
+            }
+
+            nav div {
+                gap: 15px;
+            }
+
+            .activity-card {
+                gap: 25px;
+            }
+
+            .activity-image {
+                width: 40%;
+            }
+
+        }
+
+
+        /* =========================
+           手機版
+        ========================= */
+
+        @media (max-width: 768px) {
+
+            nav {
+                position: relative;
+
+                flex-direction: column;
+
+                gap: 12px;
+
+                padding: 18px 15px;
+            }
+
+            nav h2 {
+                font-size: 20px;
+            }
+
+            nav div {
+                width: 100%;
+
+                justify-content: center;
+
+                flex-wrap: wrap;
+
+                gap: 10px 18px;
+            }
+
+            nav a {
+                font-size: 14px;
+            }
+
+
+            .page-header {
+                padding: 55px 20px 40px;
+            }
+
+            .page-header h1 {
+                font-size: 34px;
+            }
+
+            .page-header p {
+                font-size: 16px;
+            }
+
+
+            .activities {
+                padding: 40px 15px 60px;
+            }
+
+
+            .activity-card,
+            .activity-card:nth-child(even) {
+
+                flex-direction: column;
+
+                gap: 25px;
+
+                padding: 18px;
+
+                margin-bottom: 30px;
+            }
+
+
+            .activity-image {
+
+                width: 100%;
+
+                height: 230px;
+
+                min-height: 230px;
+            }
+
+
+            .activity-content h2 {
+
+                font-size: 25px;
+            }
+
+
+            .activity-content h3 {
+
+                font-size: 18px;
+            }
+
+
+            .activity-content p {
+
+                font-size: 16px;
+
+                line-height: 1.8;
+            }
+
+        }
+
+    </style>
+
 </head>
+
+
 <body>
 
-  <div class="container">
-    <header>
-      <h1>課外活動紀錄</h1>
-      <p>探索多元領域、團隊合作與社會實踐的歷程</p>
-    </header>
 
-    <main class="activity-grid">
+<!-- =========================
+     導覽列
+========================= -->
 
-      <!-- 活動 1 -->
-      <article class="activity-card">
-        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80" alt="學生會社團幹部" class="card-image">
-        <div class="card-content">
-          <span class="card-tag">社團領導</span>
-          <h2 class="card-title">學生會活動部長</h2>
-          <p class="card-date">2025 年 9 月 - 2026 年 6 月</p>
-          <p class="card-description">
-            負責籌備全校性迎新晚會與校園音樂節，跨部門協調 30 人團隊，成功吸引超過 1,200 名師生參與。
-          </p>
-          <div class="card-footer">
-            核心能力：團隊領導、活動企劃、預算管控
-          </div>
+<nav>
+
+    <h2>我的學習歷程</h2>
+
+    <div>
+
+        <a href="/">首頁</a>
+
+        <a href="/#about">關於我</a>
+
+        <a href="/activities">課外活動</a>
+
+        <a href="/#portfolio">作品集</a>
+
+        <a href="/#future">未來規劃</a>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     頁面標題
+========================= -->
+
+<header class="page-header">
+
+    <h1>🎨 課外活動</h1>
+
+    <p>
+        課堂之外的學習與成長，
+        讓我探索興趣、培養能力，
+        也在不同的活動中累積寶貴經驗。
+    </p>
+
+</header>
+
+
+<!-- =========================
+     活動內容
+========================= -->
+
+<main class="activities">
+
+
+    <!-- =====================
+         活動 1：籃球社
+    ====================== -->
+
+    <div class="activity-card">
+
+        <img
+            src="{{ url_for('static', filename='images/activity1.jpg') }}"
+            alt="籃球社團活動"
+            class="activity-image"
+            loading="lazy"
+        >
+
+        <div class="activity-content">
+
+            <span class="activity-date">
+                2024－2025
+            </span>
+
+            <h2>🏀 籃球社團</h2>
+
+            <h3>團隊合作與角色定位</h3>
+
+            <p>
+                加入籃球社是我高中三年非常寶貴的經歷。
+                在球隊中，我主要擔任控球後衛／前鋒的角色，
+                除了提升自己的籃球技巧，也逐漸理解團隊合作的重要性。
+            </p>
+
+            <p>
+                比賽中並不是只有得分才代表貢獻，
+                傳球、跑位、防守以及與隊友溝通，
+                都是團隊能夠順利運作的重要因素。
+                這讓我學會在團隊中找到自己的定位。
+            </p>
+
+            <h3>堅持與挫折復原力</h3>
+
+            <p>
+                高二參與校際交流賽時，我們曾經面臨落後的情況。
+                在比賽與訓練過程中，我學會即使遇到困難，
+                也要保持冷靜並持續努力。
+            </p>
+
+            <h3>自律與時間管理</h3>
+
+            <p>
+                高三課業繁忙，我仍然利用課餘時間進行自主訓練。
+                透過運動，我學會安排時間，也培養規律生活的習慣，
+                讓課業與興趣能夠取得平衡。
+            </p>
+
+            <div class="activity-result">
+                <strong>學習收穫：</strong>
+                團隊合作、溝通能力、抗壓能力、自律與時間管理。
+            </div>
+
+            <span class="activity-tag">
+                社團活動
+            </span>
+
         </div>
-      </article>
 
-      <!-- 活動 2 -->
-      <article class="activity-card">
-        <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=600&q=80" alt="偏鄉志工服務" class="card-image">
-        <div class="card-content">
-          <span class="card-tag">社會服務</span>
-          <h2 class="card-title">偏鄉科普暑期義教</h2>
-          <p class="card-date">2025 年 7 月 - 2025 年 8 月</p>
-          <p class="card-description">
-            設計有趣的自然科學互動實驗課程，深入偏鄉國小進行為期兩週的教學服務，啟發學童對科學的興趣。
-          </p>
-          <div class="card-footer">
-            核心能力：同理心、溝通表達、課程設計
-          </div>
+    </div>
+
+
+    <!-- =====================
+         活動 2：志工服務
+    ====================== -->
+
+    <div class="activity-card">
+
+        <img
+            src="{{ url_for('static', filename='images/activity2.jpg') }}"
+            alt="志工服務活動"
+            class="activity-image"
+            loading="lazy"
+        >
+
+        <div class="activity-content">
+
+            <span class="activity-date">
+                2025
+            </span>
+
+            <h2>❤️ 志工服務</h2>
+
+            <h3>從服務中學習責任</h3>
+
+            <p>
+                參與學校安排的志工服務，
+                協助活動準備、場地整理以及現場服務工作。
+                雖然工作看似簡單，但每一個細節都需要仔細完成。
+            </p>
+
+            <p>
+                在活動過程中，我學習到服務他人需要耐心，
+                也體會到團隊合作的重要性。
+                當大家一起完成工作時，
+                能夠感受到自己也是整個活動的一份子。
+            </p>
+
+            <h3>培養責任感</h3>
+
+            <p>
+                志工活動讓我更加了解「把事情做好」的重要性。
+                即使只是整理場地或協助活動流程，
+                都需要認真負責地完成自己的工作。
+            </p>
+
+            <div class="activity-result">
+                <strong>學習收穫：</strong>
+                責任感、耐心、服務精神、溝通與團隊合作。
+            </div>
+
+            <span class="activity-tag">
+                志工服務
+            </span>
+
         </div>
-      </article>
 
-      <!-- 活動 3 -->
-      <article class="activity-card">
-        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80" alt="黑客松程式競賽" class="card-image">
-        <div class="card-content">
-          <span class="card-tag">學術競賽</span>
-          <h2 class="card-title">全國大專黑客松競賽</h2>
-          <p class="card-date">2025 年 11 月</p>
-          <p class="card-description">
-            與隊友在 36 小時內開發出助老防摔警報 App 原型，於 50 支隊伍中脫穎而出，榮獲佳作肯定。
-          </p>
-          <div class="card-footer">
-            核心能力：快速學習、專案實作、簡報發表
-          </div>
+    </div>
+
+
+    <!-- =====================
+         活動 3：AI 科技營隊
+    ====================== -->
+
+    <div class="activity-card">
+
+        <img
+            src="{{ url_for('static', filename='images/activity3.jpg') }}"
+            alt="AI科技營隊"
+            class="activity-image"
+            loading="lazy"
+        >
+
+        <div class="activity-content">
+
+            <span class="activity-date">
+                2025
+            </span>
+
+            <h2>🤖 AI 科技營隊</h2>
+
+            <h3>接觸人工智慧與程式設計</h3>
+
+            <p>
+                參加人工智慧與程式設計相關營隊，
+                第一次比較完整地接觸 Python、人工智慧
+                以及生成式 AI 等科技領域。
+            </p>
+
+            <p>
+                活動中不只是聽講，也透過實際操作與練習，
+                嘗試將程式概念應用在實際問題上。
+                這讓我發現資訊科技不只是課本上的知識，
+                還可以用來解決生活中的問題。
+            </p>
+
+            <h3>探索未來興趣</h3>
+
+            <p>
+                透過這次營隊，我開始對資訊科技產生更濃厚的興趣，
+                也希望未來能繼續學習 Python、AI 以及網站開發，
+                建立自己的資訊能力。
+            </p>
+
+            <div class="activity-result">
+                <strong>學習收穫：</strong>
+                Python 基礎、AI 概念、問題解決能力與科技素養。
+            </div>
+
+            <span class="activity-tag">
+                科技學習
+            </span>
+
         </div>
-      </article>
 
-    </main>
-  </div>
+    </div>
+
+
+    <!-- =====================
+         活動 4：企業參訪
+    ====================== -->
+
+    <div class="activity-card">
+
+        <img
+            src="{{ url_for('static', filename='images/activity4.jpg') }}"
+            alt="企業參訪活動"
+            class="activity-image"
+            loading="lazy"
+        >
+
+        <div class="activity-content">
+
+            <span class="activity-date">
+                2026
+            </span>
+
+            <h2>🏢 企業參訪</h2>
+
+            <h3>了解資訊科技的實際應用</h3>
+
+            <p>
+                參加企業參訪活動後，
+                我有機會了解資訊科技在實際工作環境中的應用。
+                過去在課堂上學到的程式與科技概念，
+                也因此有了更具體的想像。
+            </p>
+
+            <p>
+                透過參觀工作環境以及與業界人員交流，
+                我了解到職場除了專業能力之外，
+                溝通、合作、問題解決與持續學習也非常重要。
+            </p>
+
+            <h3>思考未來方向</h3>
+
+            <p>
+                這次參訪讓我開始思考自己的未來發展，
+                希望能夠持續累積資訊科技相關能力，
+                並透過實作了解自己真正有興趣的領域。
+            </p>
+
+            <div class="activity-result">
+                <strong>學習收穫：</strong>
+                職涯探索、產業認識、溝通能力與未來方向思考。
+            </div>
+
+            <span class="activity-tag">
+                校外參訪
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================
+         活動 5：校內競賽
+    ====================== -->
+
+    <div class="activity-card">
+
+        <img
+            src="{{ url_for('static', filename='images/activity5.jpg') }}"
+            alt="校內競賽活動"
+            class="activity-image"
+            loading="lazy"
+        >
+
+        <div class="activity-content">
+
+            <span class="activity-date">
+                2026
+            </span>
+
+            <h2>🏆 校內競賽</h2>
+
+            <h3>從想法到成果</h3>
+
+            <p>
+                與同學組隊參加校內競賽，
+                從題目發想、資料蒐集、內容規劃，
+                一直到最後的成果展示，都由團隊共同完成。
+            </p>
+
+            <p>
+                在準備過程中，我們需要討論不同想法，
+                再從中整理出適合的方向。
+                當遇到意見不同時，也需要透過溝通找到共識。
+            </p>
+
+            <h3>提升問題解決能力</h3>
+
+            <p>
+                比賽過程中遇到問題時，
+                我學會先分析原因，再尋找不同的解決方法。
+                這讓我了解到完成一個作品並不是一次就能成功，
+                而是需要不斷修改與嘗試。
+            </p>
+
+            <div class="activity-result">
+                <strong>學習收穫：</strong>
+                分工合作、問題解決、資料蒐集、創意發想與表達能力。
+            </div>
+
+            <span class="activity-tag">
+                競賽活動
+            </span>
+
+        </div>
+
+    </div>
+
+
+</main>
+
+
+<!-- =========================
+     返回首頁
+========================= -->
+
+<a href="/" class="back-button">
+    ← 回到首頁
+</a>
+
+
+<!-- =========================
+     頁尾
+========================= -->
+
+<footer>
+
+    <p>
+        © 2026 我的個人網站
+    </p>
+
+</footer>
+
 
 </body>
+
 </html>
