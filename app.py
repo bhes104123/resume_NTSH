@@ -103,6 +103,9 @@ def electives():
 def ai():
     return render_template('ai.html')
 
+@app.route('/genshin')
+def genshin():
+    return render_template('genshin.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
