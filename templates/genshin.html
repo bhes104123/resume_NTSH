@@ -3,48 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>原神</title>
+
+    <title>原神｜楊士賢</title>
 
     <style>
         body {
             margin: 0;
             font-family: "Noto Sans TC", sans-serif;
             background: linear-gradient(135deg, #e3f2fd, #ffffff);
+            color: #333;
         }
 
         header {
-            background-color: #1565c0;
+            background: linear-gradient(135deg, #1565c0, #42a5f5);
             color: white;
             text-align: center;
-            padding: 40px 20px;
+            padding: 50px 20px;
         }
 
         header h1 {
             margin: 0;
-            font-size: 30px;
+            font-size: 36px;
+        }
+
+        header p {
+            margin-top: 12px;
+            font-size: 16px;
+            opacity: 0.9;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 40px auto;
             padding: 20px;
         }
 
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
         .card {
             background: white;
-            padding: 30px;
+            padding: 25px;
             border-radius: 15px;
             box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .card h2 {
+            color: #1565c0;
+            margin-top: 0;
+        }
+
+        .card p {
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border-left: 5px solid #1565c0;
+        }
+
+        .character {
+            text-align: center;
+        }
+
+        .character-icon {
+            font-size: 55px;
+            margin-bottom: 10px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 5px 12px;
+            margin: 4px;
+            background-color: #e3f2fd;
+            color: #1565c0;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .progress {
+            margin-top: 15px;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1565c0, #42a5f5);
+            border-radius: 10px;
         }
 
         .back {
             display: inline-block;
-            margin-top: 20px;
-            padding: 12px 20px;
-            background: #1565c0;
+            margin-top: 30px;
+            padding: 12px 22px;
+            background-color: #1565c0;
             color: white;
             text-decoration: none;
             border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .back:hover {
+            background-color: #0d47a1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #777;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -53,20 +136,210 @@
 
 <header>
     <h1>🎮 原神</h1>
-    <p>原神遊戲專區</p>
+    <p>我的原神遊戲專區｜遊戲紀錄與心得</p>
 </header>
 
+
 <div class="container">
-    <div class="card">
-        <h2>原神</h2>
-        <p>歡迎來到我的原神專區！</p>
 
-        <!-- 之後可以在這裡增加原神內容 -->
+    <!-- 遊戲介紹 -->
+    <div class="card highlight">
+        <h2>🌍 遊戲介紹</h2>
 
-        <a class="back" href="/">← 回到首頁</a>
+        <p>
+            《原神》是一款開放世界冒險遊戲。
+            玩家可以在提瓦特大陸中探索不同地區，
+            解開世界中的謎題、完成任務，
+            並與各種角色一起進行冒險。
+        </p>
+
+        <p>
+            遊戲中有七種元素，玩家可以利用不同元素之間的反應，
+            搭配角色組成隊伍，進行戰鬥與探索。
+        </p>
     </div>
+
+
+    <br>
+
+
+    <!-- 我的遊玩紀錄 -->
+    <div class="card">
+        <h2>📖 我的遊玩紀錄</h2>
+
+        <p>
+            我在遊玩原神的過程中，除了享受探索地圖與戰鬥之外，
+            也會研究角色的培養方式、武器選擇以及隊伍搭配。
+        </p>
+
+        <div class="progress">
+
+            <p>🗺️ 世界探索</p>
+
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 70%;"></div>
+            </div>
+
+        </div>
+
+        <div class="progress">
+
+            <p>⚔️ 角色培養</p>
+
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 80%;"></div>
+            </div>
+
+        </div>
+
+        <div class="progress">
+
+            <p>🏆 成就收集</p>
+
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 55%;"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <br>
+
+
+    <!-- 喜歡的角色 -->
+    <div class="card">
+
+        <h2>⭐ 喜歡的角色</h2>
+
+        <div class="card-grid">
+
+            <div class="character">
+                <div class="character-icon">⚡</div>
+                <h3>雷電將軍</h3>
+                <p>
+                    使用雷元素的角色，
+                    擁有強大的輸出能力與隊伍輔助能力。
+                </p>
+
+                <span class="tag">雷元素</span>
+                <span class="tag">稻妻</span>
+            </div>
+
+
+            <div class="character">
+                <div class="character-icon">🔥</div>
+                <h3>胡桃</h3>
+                <p>
+                    使用火元素的角色，
+                    具有很高的單體輸出能力。
+                </p>
+
+                <span class="tag">火元素</span>
+                <span class="tag">璃月</span>
+            </div>
+
+
+            <div class="character">
+                <div class="character-icon">❄️</div>
+                <h3>甘雨</h3>
+                <p>
+                    使用冰元素的角色，
+                    可以透過蓄力攻擊造成遠距離傷害。
+                </p>
+
+                <span class="tag">冰元素</span>
+                <span class="tag">璃月</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <br>
+
+
+    <!-- 提瓦特地區 -->
+    <div class="card">
+
+        <h2>🗺️ 提瓦特大陸</h2>
+
+        <p>
+            原神的世界中有許多不同的國家與地區，
+            每個地區都有自己的文化、故事與特色。
+        </p>
+
+        <div>
+            <span class="tag">🌬️ 蒙德</span>
+            <span class="tag">🪨 璃月</span>
+            <span class="tag">⚡ 稻妻</span>
+            <span class="tag">🌿 須彌</span>
+            <span class="tag">💧 楓丹</span>
+            <span class="tag">🔥 納塔</span>
+            <span class="tag">❄️ 至冬</span>
+        </div>
+
+    </div>
+
+
+    <br>
+
+
+    <!-- 遊戲心得 -->
+    <div class="card">
+
+        <h2>💭 我的遊戲心得</h2>
+
+        <p>
+            我覺得原神不只是單純的戰鬥遊戲，
+            遊戲中的探索、解謎以及劇情都讓我可以慢慢了解這個世界。
+        </p>
+
+        <p>
+            在培養角色的過程中，也需要思考角色之間的搭配、
+            武器以及聖遺物的選擇。
+            這讓我學習到如何分析不同條件，
+            並找出適合自己的遊戲方式。
+        </p>
+
+        <p>
+            對我來說，原神最大的樂趣就是探索未知的地區，
+            發現新的故事與角色。
+        </p>
+
+    </div>
+
+
+    <br>
+
+
+    <!-- 未來目標 -->
+    <div class="card highlight">
+
+        <h2>🎯 未來目標</h2>
+
+        <ul>
+            <li>完成更多地區的探索</li>
+            <li>培養更多喜歡的角色</li>
+            <li>收集更多角色與武器</li>
+            <li>完成更多遊戲成就</li>
+            <li>挑戰更高難度的戰鬥內容</li>
+        </ul>
+
+    </div>
+
+
+    <!-- 回首頁 -->
+    <a class="back" href="/">← 回到首頁</a>
+
 </div>
+
+
+<footer>
+    © 2026 楊士賢 學習歷程檔案
+</footer>
 
 </body>
 </html>
-
